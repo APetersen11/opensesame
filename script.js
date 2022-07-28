@@ -1,8 +1,12 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-
+//holds user data
+function userResponse(){
+//prompts and confirms
+}
+//generates user password based upon data that is passed
 function generatePassword(){
-  
+var promptData = userResponse();
 }
 
 // Write password to the #password input
