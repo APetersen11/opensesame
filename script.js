@@ -8,6 +8,7 @@ function userResponse() {
     8
   );
 
+//set password length parameters
   passwordLength = parseInt(passwordLength, 10);
 
   while (passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
@@ -34,7 +35,7 @@ function userResponse() {
   );
 
   return {
-    length: passwordLength,
+    passwordLength: passwordLength,
     lowercase: useLowerCaseCharacters,
     uppercase: useUpperCaseCharacters,
     numbers: useNumbers,
@@ -45,7 +46,6 @@ function userResponse() {
 //generates user password based upon data that is passed
 function generatePassword() {
   var promptData = userResponse();
-  console.log(promptData.numbers);
 
   while (
     !promptData.lowercase &&
@@ -59,14 +59,82 @@ function generatePassword() {
     promptData = userResponse();
   }
 
-  return "password";
+  var lowerCaseLetters = ["a", "b", "c", "d", "e", "f"];
+  var upperCaseLetters = ["A", "B", "C", "D", "E", "F"];
+  var specialCharacters = [
+    "!",
+    '"',
+    "#",
+    "$",
+    "%",
+    "&",
+    "'",
+    "(",
+    ")",
+    "*",
+    "+",
+    ",",
+    "-",
+    ".",
+    "/",
+    ":",
+    ";",
+    "<",
+    "=",
+    ">",
+    "?",
+    "@",
+    "[",
+    "]",
+    "^",
+    "_",
+    "`",
+    "{",
+    "|",
+    "}",
+    "~",
+  ];
+  var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+  var availableCharacters = [];
+
+  if (promptData.lowercase === true) {
+    availableCharacters = [].concat(availableCharacters, lowerCaseLetters);
+  }
+
+  if (promptData.uppercase === true) {
+    availableCharacters = [].concat(availableCharacters, upperCaseLetters);
+  }
+
+  if (promptData.special === true) {
+    availableCharacters = [].concat(availableCharacters, specialCharacters);
+  }
+
+  if (promptData.numbers === true) {
+    availableCharacters = [].concat(availableCharacters, numbers);
+  }
+
+  var passwordCharacters = [];
+
+  for (
+    var passwordCharacter = 0;
+    passwordCharacter < promptData.passwordLength;
+    passwordCharacter++
+  ) {
+    //borrowed from https://stackoverflow.com/a/5915122/19326349
+    var character =
+      availableCharacters[
+        Math.floor(Math.random() * availableCharacters.length)
+      ];
+    passwordCharacters.push(character);
+  }
+  return passwordCharacters.join("");
 }
 
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 }
 
