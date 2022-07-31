@@ -8,7 +8,7 @@ function userResponse() {
     8
   );
 
-//set password length parameters
+  //set password length parameters
   passwordLength = parseInt(passwordLength, 10);
 
   while (passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
@@ -20,6 +20,7 @@ function userResponse() {
     passwordLength = parseInt(passwordLength, 10);
   }
 
+  //begin character window prompts
   var useLowerCaseCharacters = window.confirm(
     "Do you want lowercase letters in your password?"
   );
@@ -34,6 +35,7 @@ function userResponse() {
     "Do you want special characters in your password?"
   );
 
+  // get data from prompts
   return {
     passwordLength: passwordLength,
     lowercase: useLowerCaseCharacters,
@@ -47,6 +49,7 @@ function userResponse() {
 function generatePassword() {
   var promptData = userResponse();
 
+  //account for no characters chosen
   while (
     !promptData.lowercase &&
     !promptData.uppercase &&
@@ -59,8 +62,61 @@ function generatePassword() {
     promptData = userResponse();
   }
 
-  var lowerCaseLetters = ["a", "b", "c", "d", "e", "f"];
-  var upperCaseLetters = ["A", "B", "C", "D", "E", "F"];
+  //create arrays of available characters
+  var lowerCaseLetters = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+  ];
+  var upperCaseLetters = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+  ];
   var specialCharacters = [
     "!",
     '"',
@@ -96,8 +152,10 @@ function generatePassword() {
   ];
   var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
+  // create empty array to accept responses
   var availableCharacters = [];
 
+  // set response conditions
   if (promptData.lowercase === true) {
     availableCharacters = [].concat(availableCharacters, lowerCaseLetters);
   }
@@ -114,6 +172,7 @@ function generatePassword() {
     availableCharacters = [].concat(availableCharacters, numbers);
   }
 
+  //set array to pick random characters from the random array
   var passwordCharacters = [];
 
   for (
