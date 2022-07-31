@@ -8,6 +8,17 @@ function userResponse() {
     8
   );
 
+  passwordLength = parseInt(passwordLength, 10);
+
+  while (passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
+    passwordLength = window.prompt(
+      "Your password must be between 8 and 128 characters.",
+      8
+    );
+
+    passwordLength = parseInt(passwordLength, 10);
+  }
+
   var useLowerCaseCharacters = window.confirm(
     "Do you want lowercase letters in your password?"
   );
