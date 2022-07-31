@@ -45,7 +45,20 @@ function userResponse() {
 //generates user password based upon data that is passed
 function generatePassword() {
   var promptData = userResponse();
-  console.log(promptData);
+  console.log(promptData.numbers);
+
+  while (
+    !promptData.lowercase &&
+    !promptData.uppercase &&
+    !promptData.special &&
+    !promptData.numbers
+  ) {
+    window.alert(
+      "You must choose at least one character type. Please try again."
+    );
+    promptData = userResponse();
+  }
+
   return "password";
 }
 
